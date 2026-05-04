@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Bell } from 'lucide-react';
 import profilePic from '../../assets/profile.png';
 
 const Navbar = () => {
@@ -42,22 +42,22 @@ const Navbar = () => {
             <Link to="/browse" className={getLinkClass('/browse')}>
               Browse
             </Link>
-            <Link to="/messages" className={getLinkClass('/messages')}>
-              Messages
-            </Link>
-            <Link to="/notifications" className={getLinkClass('/notifications')}>
-              Notifications
+            <Link to="/about" className={getLinkClass('/about')}>
+              About Us
             </Link>
           </div>
 
           {/* Right side items */}
-          <div className="flex items-center space-x-6">
-            <Link to="/report" className="hidden sm:block text-sm font-medium text-[#0F2D52] hover:text-blue-700 transition-colors">
-              Report Item
-            </Link>
-            <div className="h-8 w-8 rounded-full overflow-hidden border border-gray-200 cursor-pointer">
+          <div className="flex items-center space-x-4">
+            <button className="text-gray-500 hover:text-[#0F2D52] transition-colors p-2">
+              <Bell size={20} />
+            </button>
+            <div className="h-8 w-8 rounded-full overflow-hidden border border-gray-200 cursor-pointer hidden sm:block">
               <img src={profilePic} alt="User profile" className="h-full w-full object-cover" />
             </div>
+            <Link to="/report" className="hidden md:block bg-[#0F2D52] hover:bg-[#1a3a63] text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-sm">
+              Report an Item
+            </Link>
           </div>
         </div>
       </div>
