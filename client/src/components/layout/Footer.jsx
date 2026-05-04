@@ -9,7 +9,7 @@ const Footer = () => {
         {/* Left side */}
         <div className="mb-6 md:mb-0 text-center md:text-left">
           <h3 className="text-[#0F2D52] font-bold text-lg tracking-wider mb-1">FINDIT</h3>
-          <p className="text-gray-500 text-sm">© 2024 FindIt Community. All rights reserved.</p>
+          <p className="text-gray-500 text-sm">© 2026 FindIt Community. All rights reserved.</p>
         </div>
 
         {/* Center Links */}
