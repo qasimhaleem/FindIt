@@ -8,21 +8,19 @@ const IdentityCard = () => {
       {/* Decorative Background Element */}
       <div className="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-blue-50 to-transparent pointer-events-none rounded-r-2xl"></div>
 
-      <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center">
-        
-        {/* Avatar Section */}
+      <div className="relative flex flex-col md:flex-row gap-8 items-start md:items-center">
+
         <div className="relative shrink-0">
-          <img 
-            src={avatarImg} 
-            alt="Julian Anderson" 
-            className="w-28 h-28 rounded-2xl object-cover shadow-sm border-2 border-white"
+          <img
+            src={avatarImg}
+            alt="Julian Anderson"
+            className="w-28 h-28 rounded-2xl  shadow-sm border-2 border-white"
           />
           <button className="absolute -bottom-2 -right-2 bg-white text-[#0F2D52] p-2 rounded-lg shadow-md border border-gray-100 hover:bg-gray-50 transition-colors">
             <Camera size={16} />
           </button>
         </div>
 
-        {/* Info Section */}
         <div className="flex-grow">
           <div className="flex items-center gap-3 mb-2">
             <h2 className="text-2xl font-bold text-[#0F2D52]">Julian Anderson</h2>

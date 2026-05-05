@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ShieldCheck } from 'lucide-react';
 import heroImg from '../../assets/hero_bg.png';
 
@@ -17,12 +18,12 @@ const HeroSection = () => {
             we're here to help make the reunion happen.
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="px-6 py-3 bg-[#0F2D52] hover:bg-[#1a3a63] text-white font-medium rounded-lg transition-colors">
+            <Link to="/login" className="px-6 py-3 bg-[#0F2D52] hover:bg-[#1a3a63] text-white font-medium rounded-lg transition-colors">
               Report Lost Item
-            </button>
-            <button className="px-6 py-3 bg-[#EBF1FF] hover:bg-[#d6e2ff] text-[#0F2D52] font-medium rounded-lg transition-colors">
+            </Link>
+            <Link to="/login" className="px-6 py-3 bg-[#EBF1FF] hover:bg-[#d6e2ff] text-[#0F2D52] font-medium rounded-lg transition-colors">
               Found an Item
-            </button>
+            </Link>
           </div>
         </div>
 

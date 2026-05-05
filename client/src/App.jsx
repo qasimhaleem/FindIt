@@ -11,12 +11,14 @@ import ReportLost from './pages/ReportLost';
 import ReportFound from './pages/ReportFound';
 import Profile from './pages/Profile';
 import ComingSoon from './pages/ComingSoon';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen bg-[#F8FAFC]">
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex grow">
         <Outlet />
       </main>
       <Footer />
@@ -34,6 +36,9 @@ function App() {
           <Route path="/browse" element={<Browse />} />
           <Route path="/about" element={<About />} />
         </Route>
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* Dashboard Routes with Dashboard Layout */}
         <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />

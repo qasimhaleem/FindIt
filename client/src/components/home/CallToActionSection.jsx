@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const CallToActionSection = () => {
   return (
@@ -21,12 +22,12 @@ const CallToActionSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-4 bg-white text-[#0F2D52] font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg">
+            <Link to="/login" className="px-8 py-4 bg-white text-[#0F2D52] font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg">
               Join the Community
-            </button>
-            <button className="px-8 py-4 bg-transparent border-2 border-[rgba(255,255,255,0.3)] text-white font-bold rounded-lg hover:bg-[rgba(255,255,255,0.1)] transition-colors">
+            </Link>
+            <Link to="/about" className="px-8 py-4 bg-transparent border-2 border-[rgba(255,255,255,0.3)] text-white font-bold rounded-lg hover:bg-[rgba(255,255,255,0.1)] transition-colors inline-block text-center">
               Learn More
-            </button>
+            </Link>
           </div>
         </div>
       </div>
