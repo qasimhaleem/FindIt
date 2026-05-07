@@ -22,7 +22,7 @@ const Sidebar = () => {
       </div>
 
       {/* Main Navigation */}
-      <div className="py-6 flex-grow flex flex-col gap-2">
+      <div className="py-6 flex grow flex-col gap-2">
         <Link to="/dashboard" className={getLinkClass('/dashboard')}>
           <LayoutGrid size={20} />
           <span>Overview</span>

@@ -2,7 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const dns = require('dns');
 const authRoutes = require('./routes/authRoutes');
+
+// Use Google DNS to resolve MongoDB Atlas SRV records
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 dotenv.config();
 

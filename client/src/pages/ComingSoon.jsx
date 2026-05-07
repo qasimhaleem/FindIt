@@ -55,7 +55,7 @@ const ComingSoon = () => {
       <div className="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
         
         {/* Top Card (Spans full width) */}
-        <div className="md:col-span-2 relative rounded-2xl overflow-hidden shadow-sm aspect-[21/9] bg-gray-900 border border-gray-100 flex items-end">
+        <div className="md:col-span-2 relative rounded-2xl overflow-hidden shadow-sm aspect-21/9 bg-gray-900 border border-gray-100 flex items-end">
           <img 
             src={techAbstractImg} 
             alt="Precision Tracking Technology" 
