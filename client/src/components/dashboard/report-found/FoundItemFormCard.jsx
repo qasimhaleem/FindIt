@@ -74,11 +74,14 @@ const FoundItemFormCard = ({ isSubmitting }) => {
       </div>
 
       <div className="mb-8">
-        <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Image Upload</label>
-        <div className="border-2 border-dashed border-gray-200 bg-[#F8FAFC] rounded-xl p-10 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-blue-50/50 transition-colors">
-          <UploadCloud className="text-[#0F2D52] mb-4" size={36} />
-          <p className="text-sm font-bold text-[#0F2D52] mb-1">Click to upload or drag and drop</p>
-          <p className="text-[10px] text-gray-400 font-medium tracking-wide">PNG, JPG or JPEG (max. 5MB)</p>
+        <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Image URL (Optional)</label>
+        <div className="relative">
+          <input 
+            type="url" 
+            {...register('imageUrl')}
+            placeholder="https://example.com/image.png" 
+            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+          />
         </div>
       </div>
 

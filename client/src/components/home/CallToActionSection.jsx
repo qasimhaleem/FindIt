@@ -22,9 +22,14 @@ const CallToActionSection = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link to="/login" className="px-8 py-4 bg-white text-[#0F2D52] font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg">
+            <a 
+              href="https://whatsapp.com/channel/0029VbCtxS06RGJAao3Wzu3Y" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-white text-[#0F2D52] font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg inline-block text-center"
+            >
               Join the Community
-            </Link>
+            </a>
             <Link to="/about" className="px-8 py-4 bg-transparent border-2 border-[rgba(255,255,255,0.3)] text-white font-bold rounded-lg hover:bg-[rgba(255,255,255,0.1)] transition-colors inline-block text-center">
               Learn More
             </Link>

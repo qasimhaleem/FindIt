@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import DashboardLayout from './components/layout/DashboardLayout';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import Home from './pages/Home';
 import Browse from './pages/Browse';
@@ -13,6 +14,9 @@ import Profile from './pages/Profile';
 import ComingSoon from './pages/ComingSoon';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ItemDetail from './pages/ItemDetail';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 const MainLayout = () => {
   return (
@@ -35,21 +39,26 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/browse" element={<Browse />} />
           <Route path="/about" element={<About />} />
+          <Route path="/items/:id" element={<ItemDetail />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
         </Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         {/* Dashboard Routes with Dashboard Layout */}
-        <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
-        <Route path="/dashboard/report-lost" element={<DashboardLayout><ReportLost /></DashboardLayout>} />
-        <Route path="/dashboard/report-found" element={<DashboardLayout><ReportFound /></DashboardLayout>} />
-        <Route path="/dashboard/profile" element={<DashboardLayout><Profile /></DashboardLayout>} />
-        <Route path="/dashboard/settings" element={<DashboardLayout><ComingSoon /></DashboardLayout>} />
-        <Route path="/dashboard/help" element={<DashboardLayout><ComingSoon /></DashboardLayout>} />
-        
-        {/* Fallback route for dashboard */}
-        <Route path="/dashboard/*" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+          <Route path="/dashboard/report-lost" element={<DashboardLayout><ReportLost /></DashboardLayout>} />
+          <Route path="/dashboard/report-found" element={<DashboardLayout><ReportFound /></DashboardLayout>} />
+          <Route path="/dashboard/profile" element={<DashboardLayout><Profile /></DashboardLayout>} />
+          <Route path="/dashboard/settings" element={<DashboardLayout><ComingSoon /></DashboardLayout>} />
+          <Route path="/dashboard/help" element={<DashboardLayout><ComingSoon /></DashboardLayout>} />
+          
+          {/* Fallback route for dashboard */}
+          <Route path="/dashboard/*" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+        </Route>
       </Routes>
     </Router>
   );

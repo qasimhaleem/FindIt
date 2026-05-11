@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import { Search, PlusCircle, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import SmartFilters from '../components/browse/SmartFilters';
 // import CreatePost from '../components/browse/CreatePost';
@@ -11,7 +13,15 @@ import avatar3 from '../assets/avatar_3.png';
 const Browse = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const q = searchParams.get('q') || '';
+
   const [filters, setFilters] = useState({
     city: '',
     category: '',
@@ -23,16 +33,40 @@ const Browse = () => {
   const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
   const avatars = useMemo(() => [avatar1, avatar2, avatar3], []);
 
+  // Reset page when query changes
+  useEffect(() => {
+    setPage(1);
+  }, [q]);
+
   useEffect(() => {
     let isMounted = true;
 
     const fetchItems = async () => {
       try {
-        setLoading(true);
+        if (page === 1) setLoading(true);
+        else setLoadingMore(true);
+        
         setErrorMsg('');
-        const response = await axios.get(`${API_BASE}/api/items`);
+        const response = await axios.get(`${API_BASE}/api/items?q=${encodeURIComponent(q)}&page=${page}&limit=10`);
+        
         if (isMounted) {
-          setItems(Array.isArray(response.data) ? response.data : []);
+          let newItems = [];
+          let total = 1;
+          
+          if (Array.isArray(response.data)) {
+            newItems = response.data;
+          } else if (response.data && Array.isArray(response.data.items)) {
+            newItems = response.data.items;
+            total = response.data.totalPages || 1;
+          }
+
+          setTotalPages(total);
+          
+          if (page === 1) {
+            setItems(newItems);
+          } else {
+            setItems(prev => [...prev, ...newItems]);
+          }
         }
       } catch (error) {
         if (isMounted) {
@@ -41,6 +75,7 @@ const Browse = () => {
       } finally {
         if (isMounted) {
           setLoading(false);
+          setLoadingMore(false);
         }
       }
     };
@@ -50,7 +85,7 @@ const Browse = () => {
     return () => {
       isMounted = false;
     };
-  }, [API_BASE]);
+  }, [API_BASE, q, page]);
 
   const feedPosts = useMemo(() => {
     return items.map((item, index) => {
@@ -69,6 +104,8 @@ const Browse = () => {
         date: item.date || '',
         location: item.location || '',
         phone: item.user?.phone || '',
+        itemName: item.itemName || '',
+        image: item.imageUrl || null, // Map imageUrl to image prop
       };
     });
   }, [items, avatars]);
@@ -104,6 +141,12 @@ const Browse = () => {
     });
   };
 
+  const handleLoadMore = () => {
+    if (page < totalPages) {
+      setPage(prev => prev + 1);
+    }
+  };
+
   return (
     <div className="bg-[#F8FAFC] min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -128,21 +171,48 @@ const Browse = () => {
               </div>
             )}
 
-            {loading && (
-              <div className="mb-6 p-4 bg-white border border-gray-100 rounded-xl text-sm text-gray-500">
-                Loading latest reports...
+            {loading && page === 1 && (
+              <div className="mb-6 p-4 bg-white border border-gray-100 rounded-xl text-sm text-gray-500 flex items-center gap-2">
+                <Loader2 className="animate-spin" size={16} /> Loading latest reports...
               </div>
             )}
             
             <div className="space-y-6">
               {!loading && filteredPosts.length === 0 && !errorMsg && (
-                <div className="p-6 bg-white border border-gray-100 rounded-2xl text-center text-sm text-gray-500">
-                  No reports yet. Be the first to post a lost or found item.
+                <div className="p-10 bg-white border border-gray-100 rounded-3xl text-center shadow-sm">
+                  <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Search size={28} />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#0F2D52] mb-2">No items found</h3>
+                  <p className="text-gray-500 mb-6 max-w-md mx-auto">
+                    We couldn't find any items matching your search. If you've lost something, reporting it will notify the community immediately.
+                  </p>
+                  <Link 
+                    to="/dashboard/report-lost" 
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0F2D52] hover:bg-[#1a3a63] text-white font-bold rounded-xl shadow-md transition-colors"
+                  >
+                    <PlusCircle size={18} />
+                    Report a Lost Item
+                  </Link>
                 </div>
               )}
               {filteredPosts.map((post) => (
                 <FeedItem key={post.id} post={post} />
               ))}
+              
+              {/* Pagination Next Button */}
+              {!loading && page < totalPages && filteredPosts.length > 0 && (
+                <div className="pt-4 pb-8 flex justify-center">
+                  <button 
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                    className="px-8 py-3 bg-white border border-gray-200 hover:border-blue-300 text-[#0F2D52] font-bold rounded-xl shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  >
+                    {loadingMore && <Loader2 className="animate-spin" size={18} />}
+                    {loadingMore ? 'Loading...' : 'Load Next 10 Records'}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

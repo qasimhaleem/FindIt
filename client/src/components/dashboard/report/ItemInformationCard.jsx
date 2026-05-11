@@ -40,6 +40,16 @@ const ItemInformationCard = () => {
         </div>
       </div>
 
+      <div className="mb-6">
+        <label className="block text-xs font-semibold text-gray-700 mb-2">Image URL (Optional)</label>
+        <input 
+          type="url" 
+          {...register('imageUrl')}
+          placeholder="https://example.com/image.png" 
+          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+        />
+      </div>
+
       <div>
         <label className="block text-xs font-semibold text-gray-700 mb-2">Detailed Description</label>
         <textarea 

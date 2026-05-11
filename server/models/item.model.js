@@ -26,6 +26,9 @@ const itemSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  imageUrl: {
+    type: String,
+  },
   status: {
     type: String,
     enum: ['open', 'resolved'],

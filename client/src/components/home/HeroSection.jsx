@@ -5,7 +5,7 @@ import heroImg from '../../assets/hero_bg.png';
 
 const HeroSection = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         {/* Left Content */}
         <div className="pr-0 md:pr-12">
@@ -18,11 +18,14 @@ const HeroSection = () => {
             we're here to help make the reunion happen.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link to="/login" className="px-6 py-3 bg-[#0F2D52] hover:bg-[#1a3a63] text-white font-medium rounded-lg transition-colors">
+            <Link to="/dashboard/report-lost" className="px-6 py-3 bg-[#0F2D52] hover:bg-[#1a3a63] text-white font-medium rounded-lg transition-colors shadow-sm">
               Report Lost Item
             </Link>
-            <Link to="/login" className="px-6 py-3 bg-[#EBF1FF] hover:bg-[#d6e2ff] text-[#0F2D52] font-medium rounded-lg transition-colors">
+            <Link to="/dashboard/report-found" className="px-6 py-3 bg-[#0F2D52] hover:bg-[#1a3a63] text-white font-medium rounded-lg transition-colors shadow-sm">
               Found an Item
+            </Link>
+            <Link to="/browse" className="px-6 py-3 bg-[#EBF1FF] hover:bg-[#d6e2ff] text-[#0F2D52] font-medium rounded-lg transition-colors shadow-sm">
+              Find Item
             </Link>
           </div>
         </div>

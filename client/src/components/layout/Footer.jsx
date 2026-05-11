@@ -9,15 +9,15 @@ const Footer = () => {
         {/* Left side */}
         <div className="mb-6 md:mb-0 text-center md:text-left">
           <h3 className="text-[#0F2D52] font-bold text-lg tracking-wider mb-1">FINDIT</h3>
-          <p className="text-gray-500 text-sm">© 2026 FindIt Community. All rights reserved.</p>
+          <p className="text-gray-500 text-sm">© {new Date().getFullYear()} FindIt Community. All rights reserved.</p>
         </div>
 
         {/* Center Links */}
         <div className="flex flex-wrap justify-center gap-6 mb-6 md:mb-0">
-          <Link to="#" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">PRIVACY POLICY</Link>
-          <Link to="#" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">TERMS OF SERVICE</Link>
-          <Link to="#" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">HELP CENTER</Link>
-          <Link to="#" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">CONTACT US</Link>
+          <Link to="/privacy" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">PRIVACY POLICY</Link>
+          <Link to="/terms" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">TERMS OF SERVICE</Link>
+          <Link to="/dashboard/help" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">HELP CENTER</Link>
+          <a href="/about#contact" className="text-gray-500 hover:text-gray-900 text-xs font-semibold tracking-wider">CONTACT US</a>
         </div>
 
         {/* Right Icons */}

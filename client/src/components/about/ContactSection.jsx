@@ -3,7 +3,7 @@ import { Mail, Phone } from 'lucide-react';
 
 const ContactSection = () => {
   return (
-    <div className="bg-[#E6EAF5] py-20">
+    <div id="contact" className="bg-[#E6EAF5] py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
