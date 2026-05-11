@@ -3,6 +3,11 @@ import { ThumbsUp, MessageSquare, Share2, ShieldCheck } from 'lucide-react';
 
 const FeedItem = ({ post }) => {
   const isLost = post.status === 'LOST';
+  const authorLabel = post.author || 'Community Member';
+  const timeLocationLabel = post.timeLocation || 'Just now';
+  const phoneDigits = (post.phone || '').replace(/\D/g, '');
+  const whatsappText = encodeURIComponent('Hi! I saw your post on FindIt and wanted to connect about the item.');
+  const whatsappLink = phoneDigits ? `https://wa.me/${phoneDigits}?text=${whatsappText}` : '';
 
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 mb-6 overflow-hidden">
@@ -11,12 +16,12 @@ const FeedItem = ({ post }) => {
         <div className="flex gap-3 items-center">
           <img 
             src={post.authorAvatar} 
-            alt={post.author} 
+            alt={authorLabel} 
             className="w-12 h-12 rounded-full object-cover"
           />
           <div>
-            <h3 className="font-bold text-[#0F2D52]">{post.author}</h3>
-            <p className="text-xs text-gray-500">{post.timeLocation}</p>
+            <h3 className="font-bold text-[#0F2D52]">{authorLabel}</h3>
+            <p className="text-xs text-gray-500">{timeLocationLabel}</p>
           </div>
         </div>
         <div className={`px-3 py-1 rounded-full text-xs font-bold ${isLost ? 'bg-red-100 text-red-600' : 'bg-blue-600 text-white'}`}>
@@ -41,7 +46,7 @@ const FeedItem = ({ post }) => {
       {/* Footer Actions */}
       <div className="p-4 sm:p-6 border-t border-gray-100 flex justify-between items-center bg-gray-50/50">
         {isLost ? (
-          <div className="flex gap-6 w-full">
+          <div className="flex flex-wrap gap-4 w-full">
             <button className="flex items-center gap-2 text-gray-600 hover:text-[#0F2D52] font-medium transition-colors">
               <ThumbsUp size={18} />
               <span>Helpful</span>
@@ -50,10 +55,24 @@ const FeedItem = ({ post }) => {
               <MessageSquare size={18} />
               <span>Comment</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-[#0F2D52] font-medium transition-colors ml-auto">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-[#0F2D52] font-medium transition-colors">
               <Share2 size={18} />
               <span>Share</span>
             </button>
+            <div className="ml-auto">
+              {phoneDigits ? (
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#0F2D52] hover:bg-[#1a3a63] text-white px-5 py-2 rounded-lg font-medium transition-colors shadow-md"
+                >
+                  Message Owner
+                </a>
+              ) : (
+                <span className="text-xs text-gray-500">No contact provided</span>
+              )}
+            </div>
           </div>
         ) : (
           <div className="flex justify-between items-center w-full">
@@ -61,9 +80,18 @@ const FeedItem = ({ post }) => {
               <ShieldCheck size={18} className="text-blue-600" />
               <span>VERIFIED LISTING</span>
             </div>
-            <button className="bg-[#0F2D52] hover:bg-[#1a3a63] text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-md">
-              Message Finder
-            </button>
+            {phoneDigits ? (
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noreferrer"
+                className="bg-[#0F2D52] hover:bg-[#1a3a63] text-white px-6 py-2 rounded-lg font-medium transition-colors shadow-md"
+              >
+                Message Finder
+              </a>
+            ) : (
+              <span className="text-xs text-gray-500">No contact provided</span>
+            )}
           </div>
         )}
       </div>

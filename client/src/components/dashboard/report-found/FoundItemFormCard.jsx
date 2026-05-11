@@ -1,7 +1,10 @@
 import React from 'react';
 import { MapPin, UploadCloud } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
 
-const FoundItemFormCard = () => {
+const FoundItemFormCard = ({ isSubmitting }) => {
+  const { register } = useFormContext();
+
   return (
     <div className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-gray-100 flex flex-col h-full">
       
@@ -9,8 +12,10 @@ const FoundItemFormCard = () => {
         <label className="block text-xs font-semibold text-[#0F2D52] mb-2">What did you find?</label>
         <input 
           type="text" 
+          {...register('itemName')}
           placeholder="e.g. Silver Keychain with Blue Whistle" 
           className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+          required
         />
       </div>
 
@@ -18,12 +23,12 @@ const FoundItemFormCard = () => {
         <div>
           <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Category</label>
           <div className="relative">
-            <select className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white appearance-none cursor-pointer">
+            <select {...register('category')} className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white appearance-none cursor-pointer" required>
               <option value="">Select a category</option>
-              <option value="electronics">Electronics</option>
-              <option value="personal">Personal Items</option>
-              <option value="documents">Documents</option>
-              <option value="other">Other</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Personal Items">Personal Items</option>
+              <option value="Documents">Documents</option>
+              <option value="Other">Other</option>
             </select>
             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
               <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -31,17 +36,14 @@ const FoundItemFormCard = () => {
           </div>
         </div>
         <div>
-          <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Condition of the item</label>
+          <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Date found</label>
           <div className="relative">
-            <select className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white appearance-none cursor-pointer">
-              <option value="mint">Mint / Like New</option>
-              <option value="good">Good</option>
-              <option value="fair">Fair / Used</option>
-              <option value="poor">Poor</option>
-            </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-            </div>
+            <input 
+              type="date"
+              {...register('date')}
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+              required
+            />
           </div>
         </div>
       </div>
@@ -52,10 +54,23 @@ const FoundItemFormCard = () => {
           <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
           <input 
             type="text" 
+            {...register('location')}
             placeholder="Enter location or landmark" 
             className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+            required
           />
         </div>
+      </div>
+
+      <div className="mb-6">
+        <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Description</label>
+        <textarea 
+          {...register('description')}
+          rows="4" 
+          placeholder="Describe condition, details, etc." 
+          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-y bg-white"
+          required
+        ></textarea>
       </div>
 
       <div className="mb-8">

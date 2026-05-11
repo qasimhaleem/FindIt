@@ -1,8 +1,11 @@
 import React from 'react';
 import { MapPin, Calendar, Map as MapIcon } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
 import mapImg from '../../../assets/interactive_map.png';
 
 const OccurrenceDetailsCard = () => {
+  const { register } = useFormContext();
+
   return (
     <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-6">
       <div className="flex items-center gap-3 mb-8">
@@ -15,19 +18,22 @@ const OccurrenceDetailsCard = () => {
           <label className="block text-xs font-semibold text-gray-700 mb-2">Date Lost</label>
           <div className="relative">
             <input 
-              type="text" 
+              type="date"
+              {...register('date')}
               placeholder="mm/dd/yyyy" 
               className="w-full pl-4 pr-10 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+              required
             />
-            <Calendar className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
           </div>
         </div>
         <div>
           <label className="block text-xs font-semibold text-gray-700 mb-2">Specific Location</label>
           <input 
             type="text" 
+            {...register('location')}
             placeholder="e.g. Central Park North Bench" 
             className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+            required
           />
         </div>
       </div>

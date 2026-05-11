@@ -15,6 +15,8 @@ const Login = () => {
   const [serverError, setServerError] = React.useState('');
   const navigate = useNavigate();
 
+  const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
     resolver: yupResolver(schema),
   });
@@ -22,7 +24,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       setServerError('');
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post(`${API_BASE}/api/auth/login`, {
         email: data.email,
         password: data.password
       });
