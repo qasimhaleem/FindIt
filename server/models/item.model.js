@@ -43,4 +43,11 @@ const itemSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+// Performance indexes
+itemSchema.index({ createdAt: -1 });
+itemSchema.index({ type: 1 });
+itemSchema.index({ status: 1 });
+itemSchema.index({ user: 1 });
+itemSchema.index({ itemName: 'text', description: 'text', location: 'text', category: 'text' });
+
 module.exports = mongoose.model('Item', itemSchema);

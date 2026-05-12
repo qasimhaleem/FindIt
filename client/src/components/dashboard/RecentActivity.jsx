@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Trash2, Edit2, CheckCircle, X, Image as ImageIcon } from 'lucide-react';
-import watchImg from '../../assets/watch.png';
 
 const getStatusBadge = (item) => {
   if (item.status === 'resolved') {

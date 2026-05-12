@@ -49,7 +49,7 @@ exports.getItems = async (req, res) => {
       query.type = type;
     }
 
-    let itemsQuery = Item.find(query).populate('user', 'fullName department phone').sort({ createdAt: -1 });
+    let itemsQuery = Item.find(query).populate('user', 'fullName department phone').sort({ createdAt: -1 }).lean();
     
     const pageNum = parseInt(page) || 1;
     const limitNum = parseInt(limit) || 10;
@@ -75,7 +75,7 @@ exports.getItems = async (req, res) => {
 // @access  Private
 exports.getUserItems = async (req, res) => {
   try {
-    const items = await Item.find({ user: req.user._id }).sort({ createdAt: -1 });
+    const items = await Item.find({ user: req.user._id }).sort({ createdAt: -1 }).lean();
     res.json(items);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -101,7 +101,7 @@ exports.updateItem = async (req, res) => {
     const updatedItem = await Item.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     );
 
     res.json(updatedItem);
@@ -139,7 +139,7 @@ exports.deleteItem = async (req, res) => {
 // @access  Public
 exports.getItemById = async (req, res) => {
   try {
-    const item = await Item.findById(req.params.id).populate('user', 'fullName department phone email');
+    const item = await Item.findById(req.params.id).populate('user', 'fullName department phone email').lean();
     if (!item) {
       return res.status(404).json({ message: 'Item not found' });
     }
