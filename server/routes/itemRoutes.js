@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createItem, getItems, getItemById, getUserItems, updateItem, deleteItem } = require('../controllers/item.controller');
+const { createItem, getItems, getItemById, getUserItems, updateItem, deleteItem, getItemStats } = require('../controllers/item.controller');
 const { protect } = require('../middleware/auth.middleware');
 
 router.route('/')
@@ -9,6 +9,9 @@ router.route('/')
 
 router.route('/me')
   .get(protect, getUserItems);
+
+router.route('/stats')
+  .get(getItemStats);
 
 router.route('/:id')
   .get(getItemById)

@@ -1,9 +1,40 @@
-import React from 'react';
-import { MapPin, UploadCloud } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, UploadCloud, Loader2 } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 
 const FoundItemFormCard = ({ isSubmitting }) => {
-  const { register } = useFormContext();
+  const { register, setValue, watch } = useFormContext();
+  const [uploading, setUploading] = useState(false);
+  const imageUrl = watch('imageUrl');
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "findit_preset");
+    data.append("cloud_name", "djtvxlmdu");
+
+    try {
+      const res = await fetch("https://api.cloudinary.com/v1_1/djtvxlmdu/image/upload", {
+        method: "POST",
+        body: data,
+      });
+      const uploadedImage = await res.json();
+      if (uploadedImage.secure_url) {
+        setValue('imageUrl', uploadedImage.secure_url);
+      } else {
+        throw new Error('Upload failed');
+      }
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      alert("Failed to upload image. Make sure Cloudinary details are correct.");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   return (
     <div className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-gray-100 flex flex-col h-full">
@@ -74,14 +105,33 @@ const FoundItemFormCard = ({ isSubmitting }) => {
       </div>
 
       <div className="mb-8">
-        <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Image URL (Optional)</label>
+        <label className="block text-xs font-semibold text-[#0F2D52] mb-2">Upload Image</label>
         <div className="relative">
-          <input 
-            type="url" 
-            {...register('imageUrl')}
-            placeholder="https://example.com/image.png" 
-            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
-          />
+          <label className="flex items-center justify-center w-full px-4 py-6 border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors bg-white">
+            <input 
+              type="file" 
+              accept="image/*" 
+              className="hidden" 
+              onChange={handleImageUpload}
+              disabled={uploading}
+            />
+            {uploading ? (
+              <div className="flex flex-col items-center text-gray-500">
+                <Loader2 className="animate-spin mb-2" size={24} />
+                <span className="text-sm font-semibold">Uploading...</span>
+              </div>
+            ) : imageUrl ? (
+              <div className="w-full flex justify-center">
+                 <img src={imageUrl} alt="Uploaded" className="h-32 object-contain rounded-lg" />
+              </div>
+            ) : (
+              <div className="flex flex-col items-center">
+                <UploadCloud className="text-gray-400 mb-2" size={28} />
+                <span className="text-sm font-medium text-gray-600">Click to upload an image</span>
+              </div>
+            )}
+          </label>
+          <input type="hidden" {...register('imageUrl')} />
         </div>
       </div>
 

@@ -82,16 +82,17 @@ const RecentActivity = () => {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative">
       {/* Header */}
-      <div className="p-6 border-b border-gray-100 flex justify-between items-center">
-        <h2 className="text-xl font-bold text-[#0F2D52]">My Recent Posts</h2>
+      <div className="p-6 border-b border-gray-100">
+        <h2 className="text-xl font-bold text-[#0F2D52]">Your Reported Items</h2>
+        <p className="text-sm text-gray-500 mt-1">Manage the items you have reported as lost or found on the platform.</p>
       </div>
 
       {/* Table Header */}
       <div className="bg-[#F1F5F9] px-6 py-3 grid grid-cols-12 gap-4 text-xs font-bold text-gray-500 uppercase tracking-wider hidden sm:grid">
-        <div className="col-span-5">ITEM</div>
+        <div className="col-span-4">ITEM</div>
         <div className="col-span-2">LOCATION</div>
         <div className="col-span-2">DATE</div>
-        <div className="col-span-1 text-center">STATUS</div>
+        <div className="col-span-2 text-center">STATUS</div>
         <div className="col-span-2 text-right">ACTIONS</div>
       </div>
 
@@ -104,7 +105,7 @@ const RecentActivity = () => {
         ) : (
           items.map((item) => (
             <div key={item._id} className="p-6 grid grid-cols-1 sm:grid-cols-12 gap-4 items-center hover:bg-gray-50 transition-colors">
-              <div className="sm:col-span-5 flex items-center gap-4">
+              <div className="sm:col-span-4 flex items-center gap-4">
                 {item.imageUrl ? (
                   <img src={item.imageUrl} alt={item.itemName} className="w-12 h-12 rounded-lg object-cover border border-gray-200" />
                 ) : (
@@ -123,7 +124,7 @@ const RecentActivity = () => {
               <div className="sm:col-span-2 text-sm text-gray-600 truncate">
                 <span className="sm:hidden font-bold mr-2">Date:</span>{new Date(item.createdAt).toLocaleDateString()}
               </div>
-              <div className="sm:col-span-1 text-left sm:text-center">
+              <div className="sm:col-span-2 text-left sm:text-center">
                 <span className="sm:hidden font-bold mr-2">Status:</span>{getStatusBadge(item)}
               </div>
               <div className="sm:col-span-2 flex justify-start sm:justify-end gap-2">

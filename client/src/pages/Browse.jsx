@@ -98,7 +98,7 @@ const Browse = () => {
         author: item.user?.fullName || 'Community Member',
         authorAvatar: avatars[index % avatars.length],
         timeLocation: `${timeLabel} ${locationLabel}`.trim(),
-        status: (item.type || 'lost').toUpperCase(),
+        status: item.status === 'resolved' ? 'RESOLVED' : (item.type || 'lost').toUpperCase(),
         description: item.description || 'No description provided',
         category: item.category || 'Other',
         date: item.date || '',

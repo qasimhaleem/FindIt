@@ -8,7 +8,7 @@ const NearbyMapWidget = () => {
       <img 
         src={isoMapImg} 
         alt="Isometric Map" 
-        className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
       />
       
       {/* Dark gradient overlay at bottom */}

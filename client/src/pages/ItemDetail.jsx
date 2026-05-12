@@ -58,8 +58,8 @@ const ItemDetail = () => {
             ) : (
               <img src={watchImg} alt={item.itemName} className="w-full h-full object-cover opacity-80" />
             )}
-            <div className={`absolute top-4 right-4 px-4 py-2 rounded-full font-bold text-sm shadow-sm ${isLost ? 'bg-red-100 text-red-700' : 'bg-blue-600 text-white'}`}>
-              {item.type.toUpperCase()}
+            <div className={`absolute top-4 right-4 px-4 py-2 rounded-full font-bold text-sm shadow-sm ${item.status === 'resolved' ? 'bg-green-100 text-green-700' : (isLost ? 'bg-red-100 text-red-700' : 'bg-blue-600 text-white')}`}>
+              {item.status === 'resolved' ? 'RESOLVED' : item.type.toUpperCase()}
             </div>
           </div>
 

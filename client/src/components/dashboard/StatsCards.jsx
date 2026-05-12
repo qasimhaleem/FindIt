@@ -1,37 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Search, FileBox, Handshake } from 'lucide-react';
 
-const stats = [
-  {
-    id: 1,
-    title: 'Items Lost',
-    value: '1,248',
-    trend: '+12% from last week',
-    icon: <Search className="text-red-500" size={24} />,
-    bg: 'bg-red-50',
-    trendColor: 'text-gray-400'
-  },
-  {
-    id: 2,
-    title: 'Items Found',
-    value: '856',
-    trend: '+8% from last week',
-    icon: <FileBox className="text-blue-500" size={24} />,
-    bg: 'bg-blue-50',
-    trendColor: 'text-gray-400'
-  },
-  {
-    id: 3,
-    title: 'Successfully Reunited',
-    value: '512',
-    trend: 'New Record',
-    icon: <Handshake className="text-green-500" size={24} />,
-    bg: 'bg-green-50',
-    trendColor: 'text-green-600 font-bold'
-  }
-];
-
 const StatsCards = () => {
+  const [statsData, setStatsData] = useState({ lost: 0, found: 0, resolved: 0 });
+  const [loading, setLoading] = useState(true);
+
+  const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await axios.get(`${API_BASE}/api/items/stats`);
+        setStatsData(res.data);
+      } catch (err) {
+        console.error('Failed to fetch stats', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, [API_BASE]);
+
+  const stats = [
+    {
+      id: 1,
+      title: 'Items Lost',
+      value: loading ? '...' : statsData.lost.toLocaleString(),
+      trend: 'Active reports',
+      icon: <Search className="text-red-500" size={24} />,
+      bg: 'bg-red-50',
+      trendColor: 'text-gray-400'
+    },
+    {
+      id: 2,
+      title: 'Items Found',
+      value: loading ? '...' : statsData.found.toLocaleString(),
+      trend: 'Active reports',
+      icon: <FileBox className="text-blue-500" size={24} />,
+      bg: 'bg-blue-50',
+      trendColor: 'text-gray-400'
+    },
+    {
+      id: 3,
+      title: 'Successfully Reunited',
+      value: loading ? '...' : statsData.resolved.toLocaleString(),
+      trend: 'Resolved cases',
+      icon: <Handshake className="text-green-500" size={24} />,
+      bg: 'bg-green-50',
+      trendColor: 'text-green-600 font-bold'
+    }
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
       {stats.map((stat) => (

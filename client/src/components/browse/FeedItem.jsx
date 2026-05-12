@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const FeedItem = ({ post }) => {
   const isLost = post.status === 'LOST';
+  const isResolved = post.status === 'RESOLVED';
   const authorLabel = post.author || 'Community Member';
   const timeLocationLabel = post.timeLocation || 'Just now';
   const phoneDigits = (post.phone || '').replace(/\D/g, '');
@@ -48,7 +49,7 @@ const FeedItem = ({ post }) => {
             <p className="text-xs text-gray-500">{timeLocationLabel}</p>
           </div>
         </div>
-        <div className={`px-3 py-1 rounded-full text-xs font-bold ${isLost ? 'bg-red-100 text-red-600' : 'bg-blue-600 text-white'}`}>
+        <div className={`px-3 py-1 rounded-full text-xs font-bold ${isResolved ? 'bg-green-100 text-green-700' : (isLost ? 'bg-red-100 text-red-600' : 'bg-blue-600 text-white')}`}>
           {post.status}
         </div>
       </div>

@@ -97,12 +97,12 @@ const Topbar = ({ onMenuClick }) => {
 
       {/* Right User Area */}
       <div className="flex items-center gap-4 sm:gap-6 ml-auto">
-        <button className="text-[#0F2D52] hover:opacity-80 transition-opacity relative">
+        <Link to="/dashboard/settings" className="text-[#0F2D52] hover:opacity-80 transition-opacity relative">
           <Bell size={22} />
-        </button>
-        <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity text-[#0F2D52]">
+        </Link>
+        <Link to="/dashboard" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity text-[#0F2D52]">
           <CircleUser size={26} strokeWidth={1.5} />
-        </div>
+        </Link>
       </div>
     </div>
   );

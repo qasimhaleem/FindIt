@@ -148,3 +148,22 @@ exports.getItemById = async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+// @desc    Get item stats
+// @route   GET /api/items/stats
+// @access  Public
+exports.getItemStats = async (req, res) => {
+  try {
+    const totalLost = await Item.countDocuments({ type: 'lost' });
+    const totalFound = await Item.countDocuments({ type: 'found' });
+    const totalResolved = await Item.countDocuments({ status: 'resolved' });
+
+    res.json({
+      lost: totalLost,
+      found: totalFound,
+      resolved: totalResolved
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
