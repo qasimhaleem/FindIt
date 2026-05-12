@@ -30,7 +30,7 @@ const Browse = () => {
     endDate: '',
   });
 
-  const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+  const API_BASE = import.meta.env.VITE_API_BASE;
   const avatars = useMemo(() => [avatar1, avatar2, avatar3], []);
 
   // Reset page when query changes

@@ -6,7 +6,7 @@ const StatsCards = () => {
   const [statsData, setStatsData] = useState({ lost: 0, found: 0, resolved: 0 });
   const [loading, setLoading] = useState(true);
 
-  const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+  const API_BASE = import.meta.env.VITE_API_BASE;
 
   useEffect(() => {
     const fetchStats = async () => {

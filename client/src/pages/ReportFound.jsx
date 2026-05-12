@@ -28,7 +28,7 @@ const ReportFound = () => {
       setIsSubmitting(true);
       setErrorMsg('');
       const token = localStorage.getItem('token');
-      const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+      const API_BASE = import.meta.env.VITE_API_BASE;
       
       await axios.post(`${API_BASE}/api/items`, data, {
         headers: {

@@ -16,7 +16,7 @@ const ItemDetail = () => {
     let isMounted = true;
     const fetchItem = async () => {
       try {
-        const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+        const API_BASE = import.meta.env.VITE_API_BASE;
         const res = await axios.get(`${API_BASE}/api/items/${id}`);
         if (isMounted) setItem(res.data);
       } catch (err) {

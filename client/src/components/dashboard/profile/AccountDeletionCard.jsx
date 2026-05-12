@@ -12,7 +12,7 @@ const AccountDeletionCard = () => {
 
     if (isConfirmed) {
       try {
-        const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+        const API_BASE = import.meta.env.VITE_API_BASE;
         const token = localStorage.getItem('token');
         
         await axios.delete(`${API_BASE}/api/auth/profile`, {

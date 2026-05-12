@@ -14,7 +14,7 @@ const RecentlyFoundSection = () => {
     let isMounted = true;
     const fetchItems = async () => {
       try {
-        const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000';
+        const API_BASE = import.meta.env.VITE_API_BASE;
         const res = await axios.get(`${API_BASE}/api/items?type=found&limit=4`);
         if (isMounted) {
           setItems(res.data.items || []);
