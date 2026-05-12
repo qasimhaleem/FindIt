@@ -12,13 +12,13 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
 
-  const API_BASE = import.meta.env.VITE_API_BASE;
+  const API_URL = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/api/auth/profile`, {
+        const res = await axios.get(`${API_URL}/api/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProfileData(res.data);
@@ -29,7 +29,7 @@ const Profile = () => {
       }
     };
     fetchProfile();
-  }, [API_BASE, token]);
+  }, [API_URL, token]);
 
   const handleProfileChange = (field, value) => {
     setProfileData(prev => ({
@@ -40,7 +40,7 @@ const Profile = () => {
 
   const handleSaveAll = async () => {
     try {
-      await axios.put(`${API_BASE}/api/auth/profile`, {
+      await axios.put(`${API_URL}/api/auth/profile`, {
         fullName: profileData.fullName,
         email: profileData.email,
         phone: profileData.phone,
@@ -67,7 +67,7 @@ const Profile = () => {
 
   const handleExport = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/api/auth/export`, {
+      const res = await axios.get(`${API_URL}/api/auth/export`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

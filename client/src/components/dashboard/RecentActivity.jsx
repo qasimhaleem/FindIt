@@ -17,12 +17,12 @@ const RecentActivity = () => {
   const [loading, setLoading] = useState(true);
   const [editingItem, setEditingItem] = useState(null);
 
-  const API_BASE = import.meta.env.VITE_API_BASE;
+  const API_URL = import.meta.env.VITE_API_URL;
   
   const fetchMyItems = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${API_BASE}/api/items/me`, {
+      const res = await axios.get(`${API_URL}/api/items/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setItems(res.data);
@@ -42,7 +42,7 @@ const RecentActivity = () => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`${API_BASE}/api/items/${id}`, {
+      await axios.delete(`${API_URL}/api/items/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setItems(items.filter(item => item._id !== id));
@@ -55,7 +55,7 @@ const RecentActivity = () => {
     if (!window.confirm('Mark this item as resolved/given to owner?')) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put(`${API_BASE}/api/items/${id}`, { status: 'resolved' }, {
+      const res = await axios.put(`${API_URL}/api/items/${id}`, { status: 'resolved' }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setItems(items.map(item => item._id === id ? res.data : item));
@@ -68,7 +68,7 @@ const RecentActivity = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put(`${API_BASE}/api/items/${editingItem._id}`, editingItem, {
+      const res = await axios.put(`${API_URL}/api/items/${editingItem._id}`, editingItem, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setItems(items.map(item => item._id === editingItem._id ? res.data : item));

@@ -30,7 +30,7 @@ const Browse = () => {
     endDate: '',
   });
 
-  const API_BASE = import.meta.env.VITE_API_BASE;
+  const API_URL = import.meta.env.VITE_API_URL;
   const avatars = useMemo(() => [avatar1, avatar2, avatar3], []);
 
   // Reset page when query changes
@@ -47,7 +47,7 @@ const Browse = () => {
         else setLoadingMore(true);
         
         setErrorMsg('');
-        const response = await axios.get(`${API_BASE}/api/items?q=${encodeURIComponent(q)}&page=${page}&limit=10`);
+        const response = await axios.get(`${API_URL}/api/items?q=${encodeURIComponent(q)}&page=${page}&limit=10`);
         
         if (isMounted) {
           let newItems = [];
@@ -85,7 +85,7 @@ const Browse = () => {
     return () => {
       isMounted = false;
     };
-  }, [API_BASE, q, page]);
+  }, [API_URL, q, page]);
 
   const feedPosts = useMemo(() => {
     return items.map((item, index) => {

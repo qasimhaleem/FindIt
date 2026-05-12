@@ -6,12 +6,12 @@ const StatsCards = () => {
   const [statsData, setStatsData] = useState({ lost: 0, found: 0, resolved: 0 });
   const [loading, setLoading] = useState(true);
 
-  const API_BASE = import.meta.env.VITE_API_BASE;
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get(`${API_BASE}/api/items/stats`);
+        const res = await axios.get(`${API_URL}/api/items/stats`);
         setStatsData(res.data);
       } catch (err) {
         console.error('Failed to fetch stats', err);
@@ -20,7 +20,7 @@ const StatsCards = () => {
       }
     };
     fetchStats();
-  }, [API_BASE]);
+  }, [API_URL]);
 
   const stats = [
     {

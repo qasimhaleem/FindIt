@@ -31,9 +31,9 @@ const ReportLost = () => {
       setIsSubmitting(true);
       setErrorMsg('');
       const token = localStorage.getItem('token');
-      const API_BASE = import.meta.env.VITE_API_BASE;
+      const API_URL = import.meta.env.VITE_API_URL;
       
-      await axios.post(`${API_BASE}/api/items`, data, {
+      await axios.post(`${API_URL}/api/items`, data, {
         headers: {
           Authorization: `Bearer ${token}`
         }

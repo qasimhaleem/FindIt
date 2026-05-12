@@ -10,9 +10,9 @@ const SecurityCard = ({ profileData, onChange }) => {
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     try {
-      const API_BASE = import.meta.env.VITE_API_BASE;
+      const API_URL = import.meta.env.VITE_API_URL;
       const token = localStorage.getItem('token');
-      await axios.put(`${API_BASE}/api/auth/password`, { currentPassword, newPassword }, {
+      await axios.put(`${API_URL}/api/auth/password`, { currentPassword, newPassword }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       alert('Password updated successfully!');

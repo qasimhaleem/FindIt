@@ -12,10 +12,10 @@ const AccountDeletionCard = () => {
 
     if (isConfirmed) {
       try {
-        const API_BASE = import.meta.env.VITE_API_BASE;
+        const API_URL = import.meta.env.VITE_API_URL;
         const token = localStorage.getItem('token');
         
-        await axios.delete(`${API_BASE}/api/auth/profile`, {
+        await axios.delete(`${API_URL}/api/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 

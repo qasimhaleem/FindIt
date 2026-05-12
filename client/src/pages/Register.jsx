@@ -25,12 +25,12 @@ const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  const API_BASE = import.meta.env.VITE_API_BASE;
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const onSubmit = async (data) => {
     try {
       setServerError('');
-      const response = await axios.post(`${API_BASE}/api/auth/register`, {
+      const response = await axios.post(`${API_URL}/api/auth/register`, {
         fullName: data.fullName,
         email: data.email,
         phone: data.phone,

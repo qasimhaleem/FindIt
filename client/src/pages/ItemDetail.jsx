@@ -16,8 +16,8 @@ const ItemDetail = () => {
     let isMounted = true;
     const fetchItem = async () => {
       try {
-        const API_BASE = import.meta.env.VITE_API_BASE;
-        const res = await axios.get(`${API_BASE}/api/items/${id}`);
+        const API_URL = import.meta.env.VITE_API_URL;
+        const res = await axios.get(`${API_URL}/api/items/${id}`);
         if (isMounted) setItem(res.data);
       } catch (err) {
         if (isMounted) setErrorMsg('Item not found or failed to load.');
